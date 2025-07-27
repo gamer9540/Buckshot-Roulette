@@ -275,13 +275,16 @@ def dealert():
     if not mode=="e":
         if "cigarettes" in dealer and dlives < maxlives:
             cigar()
+            cp("the dealer smoked a cigarette.")
         if "beer" in dealer and lives==blanks:
             beer()
+            cp("the dealer drank a beer.")
         if "handcuffs" in dealer:
             if dl==0:
                 hand()
         if "magnifying glass" in dealer and lives+blanks<3:
             glass()
+            cp("the dealer used a magnifying glass.")
         if "saw" in dealer and (lives>blanks or dk==1):
             if dk==1:
                 if current=="live":
@@ -290,8 +293,10 @@ def dealert():
             elif lives>blanks:
                 saw = 1
                 dealer.remove("saw")
+            cp("the dealer used a saw.")
         if "inverter" in dealer and blanks>lives:
             invert()
+            cp("the dealer used an inverter.")
         if "expired medicine" in dealer and lives>1 and lives<maxlives-2:
             dealer.remove("expired medicine")
             rng = random.randint(0, 1)
@@ -301,6 +306,7 @@ def dealert():
             else:
                 dlives -= 1
                 cp("the dealer lost 1 life.")
+            cp("the dealer used some expired medicine.")
         time.sleep(1.5)
     if shotgun:
         current = bullets[shotgun[0]]
