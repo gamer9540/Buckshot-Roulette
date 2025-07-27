@@ -208,47 +208,52 @@ def playert():
             for i in range(len(player)):
                 print(f"{i} - {player[i]}")
             puse = ci(f"what item to use? (enter the number, leave blank if you dont want to use anything). ")
-            if int(puse) < len(player) or puse == len(player):
-                if player[int(puse)]=="magnifying glass":
-                    glass()
-                elif player[int(puse)]=="beer":
-                    beer()
-                elif player[int(puse)]=="handcuffs":
-                    if dl==0:
-                        hand()
-                    elif dl==1:
-                        cp("handcuffs don't stack.")
-                    else:
-                        cp("dealer is already handcuffed")
-                elif player[int(puse)]=="cigarettes":
-                    cigar()
-                elif player[int(puse)]=="saw":
-                    if saw==0:
-                        saw = 1
-                        player.pop(player.index("saw"))
-                        cp("next shot does 2 damage if it is live.")
-                    else:
-                        cp("saw damage doesn't stack.")
-                elif player[int(puse)]=="inverter":
-                    invert()
-                elif player[int(puse)]=="expired medicine":
-                    rng = random.randint(0, 1)
-                    if rng==1:
-                        plives += 2
-                        if plives>maxlives:
-                            plives = maxlives
-                        cp("you gained 2 lives.")
-                    else:
-                        plives -= 1
-                        cp("you lost 1 life.")
+            if puse.isdigit() and 0 <= int(puse) < len(player) or puse=="":
+                if not puse=="":
+                    if int(puse) < len(player) or puse == len(player):
+                        if player[int(puse)]=="magnifying glass":
+                            glass()
+                        elif player[int(puse)]=="beer":
+                            beer()
+                        elif player[int(puse)]=="handcuffs":
+                            if dl==0:
+                                hand()
+                            elif dl==1:
+                                cp("handcuffs don't stack.")
+                            else:
+                                cp("dealer is already handcuffed")
+                        elif player[int(puse)]=="cigarettes":
+                            cigar()
+                        elif player[int(puse)]=="saw":
+                            if saw==0:
+                                saw = 1
+                                player.pop(player.index("saw"))
+                                cp("next shot does 2 damage if it is live.")
+                            else:
+                                cp("saw damage doesn't stack.")
+                        elif player[int(puse)]=="inverter":
+                            invert()
+                        elif player[int(puse)]=="expired medicine":
+                           rng = random.randint(0, 1)
+                           if rng==1:
+                                plives += 2
+                                if plives>maxlives:
+                                    plives = maxlives
+                                cp("you gained 2 lives.")
+                           else:
+                                plives -= 1
+                                cp("you lost 1 life.")
+                           player.remove("expired medicine")
                 time.sleep(2)
                 mi = ci("do you want to use more items? (y/n) ")
                 if mi=="n":
                     break
                 elif mi!="y":
                     cp("invalid input.")
-            else:
+            elif not puse=="":
                 cp("invalid input.")
+            else:
+                break
         break
     while True:
         pd = ci("shoot the dealer or yourself? (d/y) ")
